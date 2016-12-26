@@ -4,7 +4,7 @@ function start(feed)
 	local worldwideEHyperWeb = require "internet"
 	local term = require "term"
 	local component = require "component"  
-	--Get necessary libraries.
+	--Require the OpenOS libraries necessary for operation.
 
 	while actuallyRun do --To allow dry-runs of the system.
 		component.gpu.setResolution(60, 30)
@@ -20,10 +20,12 @@ function start(feed)
 		if data == "STOP" then
 			actuallyRun = false --Stop, so that it's possible to modify configs on already-running screen setups.
 		else
-			term.write(data, true)
+			data:gsub(".", function(char)
+					term.write(char, true) --Write each character of `data to screen, and wrap text. 
+			end)
 		end
 		
-		os.sleep(60) --Wait before redownloading everything
+		os.sleep(60) --Wait before redownloading & redrawing everything
 	end
 end
 
