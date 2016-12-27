@@ -9,7 +9,7 @@ local function netRequest(url)
 		data = data .. chunk
 	end
 	
-	return data
+	return data:gsub("\r", "")
 end
 
 local function stringToChars(str)
