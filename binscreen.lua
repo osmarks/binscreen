@@ -21,12 +21,11 @@ local function runOnce(dataURL, cfgURL)
 	local term = require "term"
 	local serialization = require "serialization"
 	
-	component.gpu.setResolution(RESOLUTION_HORIZONTAL, RESOLUTION_VERTICAL)
-	-- Set resolution. For a square screen, the second number must be half the first for some reason
 	term.clear() -- Wipe previous text off screen.
 
 	local data = netRequest(dataURL)
-	local cfg = serialization.unserialize(cfgURL)
+	local cfg = serialization.unserialize(netRequest(cfgURL))
+	component.gpu.setResolution(cfg.width or RESOLUTION_HORIZONTAL, cfg.height or RESOLUTION_VERTICAL)
 	
 	if data == "STOP" then
 		continueRunning = false -- Stop on certain message to allow config modifications on running screen setups.
