@@ -39,7 +39,7 @@ function start(data, cfg)
 	local runs = 0
 
 	while continueRunning or runs < 1 do -- Program should run at least once.
-		runOnce(feed)
+		runOnce(data, cfg)
 		runs = runs + 1
 		os.sleep(REFRESH_TIME) -- Wait before redownloading & redrawing everything	
 	end
